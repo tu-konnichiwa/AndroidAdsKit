@@ -1,0 +1,19 @@
+[versions]
+agp = "9.3.3"
+junit = "4.13.2"
+playServicesAds = "25.3.0"
+shimmer = "0.5.0"
+androidxLifecycle = "2.9.4"
+kotlinxCoroutines = "1.11.0"
+userMessagingPlatform = "4.0.0"
+
+[libraries]
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+play-services-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playServicesAds" }
+shimmer = { group = "com.facebook.shimmer", name = "shimmer", version.ref = "shimmer" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+user-messaging-platform = { group = "com.google.android.ump", name = "user-messaging-platform", version.ref = "userMessagingPlatform" }
+
+[plugins]
+android-library = { id = "com.android.library", version.ref = "agp" }

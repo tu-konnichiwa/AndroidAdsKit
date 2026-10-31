@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="NativeAdView">
+        <attr name="adLayout" format="reference" />
+        <attr name="autoShowShimmer" format="boolean" />
+    </declare-styleable>
+</resources>

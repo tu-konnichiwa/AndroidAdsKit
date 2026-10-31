@@ -1,0 +1,13 @@
+<resources>
+    <item name="ad_container" type="id" />
+    <item name="ad_headline" type="id" />
+    <item name="ad_media" type="id" />
+    <item name="ad_body" type="id" />
+    <item name="ad_call_to_action" type="id" />
+    <item name="ad_app_icon" type="id" />
+    <item name="ad_advertiser" type="id" />
+    <item name="ad_stars" type="id" />
+    <item name="adkit_fullscreen_ad_container" type="id" />
+    <item name="adkit_fullscreen_close" type="id" />
+    <item name="adkit_banner_session" type="id" />
+</resources>
