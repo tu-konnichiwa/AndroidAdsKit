@@ -1,9 +1,13 @@
 [versions]
 agp = "9.3.3"
+androidxComposeBom = "2026.05.01"
+androidxLifecycle = "2.9.4"
+facebookAndroidSdk = "18.3.0"
+firebaseBom = "34.18.0"
 junit = "4.13.2"
 playServicesAds = "25.3.0"
 shimmer = "0.5.0"
-androidxLifecycle = "2.9.4"
+kotlin = "2.3.21"
 kotlinxCoroutines = "1.11.0"
 userMessagingPlatform = "4.0.0"
 
@@ -12,8 +16,16 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 play-services-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playServicesAds" }
 shimmer = { group = "com.facebook.shimmer", name = "shimmer", version.ref = "shimmer" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+facebook-android-sdk = { group = "com.facebook.android", name = "facebook-android-sdk", version.ref = "facebookAndroidSdk" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 user-messaging-platform = { group = "com.google.android.ump", name = "user-messaging-platform", version.ref = "userMessagingPlatform" }
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "agp" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

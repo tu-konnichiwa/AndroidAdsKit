@@ -2,7 +2,9 @@
 
 AndroidAdsKit is a Kotlin Android library for Google Mobile Ads. It provides adaptive, fixed-size,
 medium-rectangle, and collapsible banners; cached native ads; interstitial, rewarded, and app-open
-ads; and an optional Google User Messaging Platform (UMP) consent manager.
+ads with Android View and Jetpack Compose hosts; paid impression events with optional Firebase
+Analytics and Meta App Events adapters; and an optional Google User Messaging Platform (UMP) consent
+manager.
 
 ## Requirements
 
@@ -221,6 +223,31 @@ directly; a successful result transfers ownership to the caller. `NativeAdView.b
 that ownership to the view, which releases the ad on detach, lifecycle destruction, replacement, or
 explicit `destroy()`.
 
+### Compose hosts
+
+The Compose APIs wrap the same library-managed Android views. A banner session closes when its
+composable leaves composition; the native composable transfers the ad to its host and destroys it
+when that host leaves composition.
+
+```kotlin
+AndroidAdsBanner(
+    adsKit = adsKit,
+    activity = this,
+    adUnitId = "ca-app-pub-3940256099942544/9214589741",
+    modifier = Modifier.fillMaxWidth(),
+    onState = { state -> /* Handle BannerAdState. */ }
+)
+
+AndroidNativeAd(
+    ad = nativeAd,
+    layoutRes = R.layout.native_ad,
+    modifier = Modifier.fillMaxWidth()
+)
+```
+
+The consuming app should use a Compose BOM for its own Compose UI dependencies. AndroidAdsKit
+exports the Compose runtime, UI, and lifecycle APIs needed by these composables.
+
 ## Full-screen ads
 
 Create one manager per placement and preload before the point where the app may show an ad.
@@ -294,6 +321,30 @@ appOpen.show(activity)
 - Pass a `PaidEventListener` to `AdsKit` to receive paid-impression values for supported formats.
   `valueMicros` is in millionths of `currencyCode`; forward it to the app's analytics or revenue
   destination.
+- Optional `FirebaseAdRevenueTracker` and `MetaAdRevenueTracker` adapters are available in
+  `com.tukonnichiwa.adskit.tracking`. Their SDK dependencies are compile-only; add the tracking
+  provider dependency to the consuming app before using an adapter. For Firebase Analytics:
+
+  ```kotlin
+  dependencies {
+      implementation(platform("com.google.firebase:firebase-bom:34.18.0"))
+      implementation("com.google.firebase:firebase-analytics")
+  }
+  ```
+
+  For Meta App Events, add `com.facebook.android:facebook-android-sdk:18.3.0` and configure and
+  initialize the Facebook SDK in the app. Then forward paid events to both destinations:
+
+  ```kotlin
+  val tracker = CompositePaidEventListener(
+      FirebaseAdRevenueTracker(application),
+      MetaAdRevenueTracker(application)
+  )
+  val adsKit = AdsKit(application, paidEventListener = tracker)
+  ```
+
+  Both adapters skip non-positive revenue or blank currency. Firebase receives an `ad_impression`
+  event with revenue in currency units; Meta receives `AdImpression` with the ad format.
 - The host owns app-open triggering, premium gating, Remote Config, app-specific resources, and
   native views that it has already attached.
 - Cache lifetime and load timeout values are milliseconds. Load timeouts are limited to five

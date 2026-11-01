@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.compose.compiler)
     id("maven-publish")
 }
 
@@ -11,6 +12,10 @@ android {
 
     defaultConfig {
         minSdk = 26
+    }
+
+    buildFeatures {
+        compose = true
     }
 
     publishing {
@@ -46,5 +51,12 @@ dependencies {
     api(libs.androidx.lifecycle.runtime.ktx)
     api(libs.kotlinx.coroutines.android)
     api(libs.user.messaging.platform)
+    api(platform(libs.androidx.compose.bom))
+    api(libs.androidx.compose.runtime)
+    api(libs.androidx.compose.ui)
+    api(libs.androidx.lifecycle.runtime.compose)
+    compileOnly(platform(libs.firebase.bom))
+    compileOnly(libs.firebase.analytics)
+    compileOnly(libs.facebook.android.sdk)
     testImplementation(libs.junit)
 }
