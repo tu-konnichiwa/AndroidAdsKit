@@ -28,7 +28,34 @@ dependencies {
 }
 ```
 
-The library is not published to Maven Central by this project yet.
+### Use from JitPack
+
+This repository is configured to publish the `android-ads-kit` release variant through JitPack.
+Push the repository to GitHub and create the first version tag, `v1.0.0`. A consumer adds
+JitPack to dependency resolution in `settings.gradle.kts`:
+
+```kotlin
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+```
+
+Then use the tag as the dependency version:
+
+```kotlin
+dependencies {
+    implementation("com.github.tu-konnichiwa.AndroidAdsKit:android-ads-kit:v1.0.0")
+}
+```
+
+Replace `v1.0.0` with a tag that exists in the GitHub repository. JitPack builds the tagged source
+on demand; this project does not upload releases to Maven Central. See the [JitPack Android
+guide](https://docs.jitpack.io/android/) for repository and build details.
 
 ## Configure the consuming app
 
